@@ -8,6 +8,6 @@ class MLS
 {
     public static function test($id = 0)
     {
-        echo "MLS Test2333--{$id}".PHP_EOL;
+        echo "MLS Teswwwt2333--{$id}".PHP_EOL;
     }
 }

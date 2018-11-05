@@ -10,11 +10,15 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/zongqi', function () {
-    print_r(env('REDIS_PORT'));
-    \App\Http\Controllers\Activity\Controller\QianDaoTongJi::oSign();
-});
+$aPathArr = [
+    'activity'
+];
+foreach ($aPathArr as $item) {
+// base_path()  // /data/wwwroot/laravel
+    foreach (glob(base_path('/routes/' . $item) . "/*.php") as $file) {
+        include_once $file;
+    }
+}
 
 Route::get('/', function () {
     return view('welcome');
