@@ -19,20 +19,17 @@ class MyRedis
     public static function oInstance()
     {
         if (!self::$oInstance) {
-            self::$oInstance = self::oRedis();
+            self::$oInstance = new self();
         }
         return self::$oInstance;
     }
 
-    private static function oRedis()
-    {
+    //私有化构造方法，禁止外部实例化对象
+    private function __construct(){
         $redis = (new \Redis);
         $redis->connect('127.0.0.1');
         return $redis;
     }
-
-    //私有化构造方法，禁止外部实例化对象
-    private function __construct(){}
 
 
     // 私有化__clone，防止对象被克隆
