@@ -15,7 +15,7 @@ use PHPMailer\PHPMailer\SMTP;
 
 class MySendEmail
 {
-    public function __construct($sFromName, $sToEmail, $sEmailTitle, $sEmailContent)
+    public static function bSend($sFromName, $sToEmail, $sEmailTitle, $sEmailContent)
     {
         //实例化PHPMailer核心类
         $mail = new PHPMailer(true);
@@ -63,6 +63,7 @@ class MySendEmail
         $mail->Body = $sEmailContent;
 
         $status = $mail->send();
+        return $status;
         //判断与提示信息
 //        if($status) {
 //            return true;

@@ -48,11 +48,11 @@ class Vpn
             if ($iDays <= 3) {
                 $sEmailTitle = 'VPN说明';
                 $sEmailContent = 'VPN 使用还剩' . $iDays . '天, 请及时缴费';
-                $mail = new MySendEmail('VPN', $sEmail, $sEmailTitle, $sEmailContent);
+                MySendEmail::bSend('VPN', $sEmail, $sEmailTitle, $sEmailContent);
 
                 $sAdminTitle = 'VPN缴费通知';
                 $sAdminContent = $aItem['name'] . '需要缴费了. 端口' . $aItem['port'] . ',邮箱: ' . $sEmail;
-                $mail = new MySendEmail('VPN', $sAdminEmail, $sAdminTitle, $sEmailContent);
+                MySendEmail::bSend('VPN', $sAdminEmail, $sAdminTitle, $sAdminContent);
             }
         }
 
@@ -61,7 +61,7 @@ class Vpn
         foreach ($aRet as $name => $days) {
             $sAdminContent .= $name . '--还剩--' . $days .'天' . PHP_EOL;
         }
-        $mail = new MySendEmail('VPN', $sAdminEmail, $sAdminTitle, $sAdminContent);
+        MySendEmail::bSend('VPN', $sAdminEmail, $sAdminTitle, $sAdminContent);
     }
 
 }
