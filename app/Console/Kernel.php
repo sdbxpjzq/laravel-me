@@ -24,9 +24,12 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+//        * * * * * cd /data/wwwroot/laravel/ && /usr/local/php/bin/php artisan schedule:run >> /dev/null 2>&1
+        // 每天执行
         $schedule->call(function (){
-//            \App\Http\Controllers\Email\Controller::bSendVpnEmail();
-        })->everyMinute();
+            // VPN 说明
+            \App\Http\Controllers\Email\Controller\Vpn::bSendVpnEmail();
+        })->daily();
         // $schedule->command('inspire')
         //          ->hourly();
     }
@@ -39,6 +42,7 @@ class Kernel extends ConsoleKernel
     protected function commands()
     {
         $this->load(__DIR__.'/Commands');
+
 
         require base_path('routes/console.php');
     }

@@ -7,7 +7,6 @@ Route::prefix('activity')->group(function () {
 
 
     Route::get('/6', function () {
-       \App\Http\Controllers\Email\Controller\Vpn::bSendVpnEmail();
     });
 
     Route::get('/getQianDao', function () {

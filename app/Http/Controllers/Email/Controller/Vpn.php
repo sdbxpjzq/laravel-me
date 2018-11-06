@@ -13,44 +13,55 @@ use Custom\Classes\MySendEmail;
 class Vpn
 {
     private static $aUser = [
-        // 安可
         '245783065@qq.com' => [
             'time' => '2019-06-10',
-            'port' => 9090
-        ], //9090
-        // 欢欢
+            'port' => 9090,
+            'name' => '安可'
+        ],
         '18410134386@163.com' => [
             'time' => '2019-03-14',
-            'port' => 8987
+            'port' => 8987,
+            'name' => '杨欢'
         ],
-        //
         'youchebuqi@163.com' => [
             'time' => '2019-11-05',
-            'port' => 9091
+            'port' => 9091,
+            'name' => '徐志伟'
         ],
-        // 宋志超
-//        '' => '2019-05-06' //9082
+        '992331527@qq.com' => [
+            'time' => '2019-05-06',
+            'port' => 9082,
+            'name' => '宋志超'
+        ]
     ];
 
 
     public static function bSendVpnEmail()
     {
+        $aRet = [];
+        $sAdminEmail = '1165064143@qq.com';
         $now = date('Y-m-d');
         foreach (self::$aUser as $sEmail => $aItem) {
             $diff = date_diff(date_create($now), date_create($aItem['time']));
             $iDays = intval($diff->format('%R%a'));
+            $aRet[$aItem['name']] = $iDays;
             if ($iDays <= 3) {
-                $sToEmail = $sEmail;
                 $sEmailTitle = 'VPN说明';
                 $sEmailContent = 'VPN 使用还剩' . $iDays . '天, 请及时缴费';
-                $mail = new MySendEmail('VPN',$sToEmail, $sEmailTitle, $sEmailContent);
+                $mail = new MySendEmail('VPN', $sEmail, $sEmailTitle, $sEmailContent);
 
-                $sAdminEmail = '1165064143@qq.com';
                 $sAdminTitle = 'VPN缴费通知';
-                $sAdminContent = '端口'. $aItem['port'] . '需要缴费了.'. '邮箱: '. $sEmail;
-                $mail = new MySendEmail('VPN',$sAdminEmail, $sAdminTitle, $sEmailContent);
+                $sAdminContent = $aItem['name'] . '需要缴费了. 端口' . $aItem['port'] . ',邮箱: ' . $sEmail;
+                $mail = new MySendEmail('VPN', $sAdminEmail, $sAdminTitle, $sEmailContent);
             }
         }
+
+        $sAdminTitle = 'VPN';
+        $sAdminContent = '';
+        foreach ($aRet as $name => $days) {
+            $sAdminContent .= $name . '--还剩--' . $days .'天' . PHP_EOL;
+        }
+        $mail = new MySendEmail('VPN', $sAdminEmail, $sAdminTitle, $sAdminContent);
     }
 
 }
