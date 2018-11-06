@@ -9,7 +9,7 @@ class Kernel extends ConsoleKernel
 {
     /**
      * The Artisan commands provided by your application.
-     *
+     *  应用里的自定义 Artisan 命令
      * @var array
      */
     protected $commands = [
@@ -18,12 +18,15 @@ class Kernel extends ConsoleKernel
 
     /**
      * Define the application's command schedule.
-     *
+     * 定义计划任务
      * @param  \Illuminate\Console\Scheduling\Schedule  $schedule
      * @return void
      */
     protected function schedule(Schedule $schedule)
     {
+        $schedule->call(function (){
+//            \App\Http\Controllers\Email\Controller::bSendVpnEmail();
+        })->everyMinute();
         // $schedule->command('inspire')
         //          ->hourly();
     }

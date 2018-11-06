@@ -7,9 +7,9 @@ Route::prefix('activity')->group(function () {
 
 
     Route::get('/6', function () {
-        Controller\TestRedis::pipline();
-        Controller\TestRedis::get();
+       \App\Http\Controllers\Email\Controller\Vpn::bSendVpnEmail();
     });
+
     Route::get('/getQianDao', function () {
 
         return json_encode(['zongqi']);
