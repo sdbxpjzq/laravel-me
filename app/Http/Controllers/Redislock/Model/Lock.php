@@ -30,13 +30,13 @@ class Lock extends Model
             $aKuCun = $aKuCun->get(0);
             $number = $aKuCun->number;
             if ($number > 0) {
-                self::saveorder($number);
+                self::saveOrder($number);
             }
         }
     }
 
     // 写订单
-    public static function saveorder($number)
+    public static function saveOrder($number)
     {
         $id = DB::table(self::$order)->insertGetId(['number' => $number]);
         if ($id) {
