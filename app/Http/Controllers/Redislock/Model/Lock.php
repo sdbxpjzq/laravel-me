@@ -46,6 +46,12 @@ class Lock extends Model
         if ($num) {
             // 扣减成功  去下单
             $id = DB::table(self::$order)->insertGetId(['number' => $number]);
+            if(!$id) {
+                //下单失败 补偿
+                $num = DB::table(self::$storage)->where([
+                    ['id', '=', 1]
+                ])->increment('number', 1);
+            }
             RedisLock::del(self::$lockKey);
             var_dump('成功');
         }
