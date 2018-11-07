@@ -39,13 +39,15 @@ class Lock extends Model
     // 写订单
     public static function saveOrder($number)
     {
-        $id = DB::table(self::$order)->insertGetId(['number' => $number]);
-        if ($id) {
-            $aKuCun = DB::table(self::$storage)->where([
-                ['id', '=', 1]
-            ])->decrement('number', 1);
+        // 先消耗资源 在做其他的事情
+        $num = DB::table(self::$storage)->where([
+            ['id', '=', 1]
+        ])->decrement('number', 1);
+        if ($num) {
+            // 扣减成功  去下单
+            $id = DB::table(self::$order)->insertGetId(['number' => $number]);
             RedisLock::del(self::$lockKey);
-            var_dump('扣减成功' . $aKuCun);
+            var_dump('成功');
         }
     }
 }
