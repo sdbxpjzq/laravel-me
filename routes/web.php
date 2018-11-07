@@ -20,6 +20,10 @@ foreach ($aPathArr as $item) {
     }
 }
 
+Route::get('/6', function () {
+    return \App\Http\Controllers\Redislock\Model\Lock::storage();
+});
+
 Route::get('/', function () {
     return view('welcome');
 });

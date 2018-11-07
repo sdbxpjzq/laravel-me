@@ -8,10 +8,9 @@
 
 namespace App\Http\Controllers\Redislock\Controller;
 
-
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class Lock extends Controller
 {
-
 }

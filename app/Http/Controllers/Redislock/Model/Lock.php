@@ -9,9 +9,42 @@
 namespace App\Http\Controllers\Redislock\Model;
 
 
+use App\Custom\Classes\RedisLock;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 class Lock extends Model
 {
+    private static $storage = 'storage';
+    private static $order = 'order';
+    private static $lockKey = 'testloclk';
 
+    // 查询库存
+    public static function storage()
+    {
+        $lock = RedisLock::set(self::$lockKey, 10);
+        if ($lock) {
+            $aKuCun = DB::table(self::$storage)->where([
+                ['id', '=', 1]
+            ])->limit(1)->get();
+            $aKuCun = $aKuCun->get(0);
+            $number = $aKuCun->number;
+            if ($number > 0) {
+                self::saveorder($number);
+            }
+        }
+    }
+
+    // 写订单
+    public static function saveorder($number)
+    {
+        $id = DB::table(self::$order)->insertGetId(['number' => $number]);
+        if ($id) {
+            $aKuCun = DB::table(self::$storage)->where([
+                ['id', '=', 1]
+            ])->decrement('number', 1);
+            RedisLock::del(self::$lockKey);
+            var_dump('扣减成功' . $aKuCun);
+        }
+    }
 }

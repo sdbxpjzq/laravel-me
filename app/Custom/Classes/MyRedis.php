@@ -15,21 +15,24 @@ class MyRedis
      *  单例模式:  三私一公
      */
 
-    private static $oInstance = null;
+    private static $oInstance;
     public static function oInstance()
     {
         if (!self::$oInstance) {
-            self::$oInstance = new self();
+            self::$oInstance = self::oRedis();
         }
         return self::$oInstance;
     }
 
-    //私有化构造方法，禁止外部实例化对象
-    private function __construct(){
+    private static function oRedis()
+    {
         $redis = (new \Redis);
         $redis->connect('127.0.0.1');
         return $redis;
     }
+
+    //私有化构造方法，禁止外部实例化对象
+    private function __construct(){}
 
 
     // 私有化__clone，防止对象被克隆
