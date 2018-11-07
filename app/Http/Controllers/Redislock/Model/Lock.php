@@ -22,7 +22,8 @@ class Lock extends Model
     // 查询库存
     public static function storage()
     {
-        $lock = RedisLock::set(self::$lockKey, 10);
+        // 加锁
+        $lock = RedisLock::set(self::$lockKey, 3);
         if ($lock) {
             $aKuCun = DB::table(self::$storage)->where([
                 ['id', '=', 1]
