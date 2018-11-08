@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+WS客户端
+<script>
+    var wsUrl = 'ws://dev.com:8812';
+    var ws = new WebSocket(wsUrl);
+    ws.onopen = function () {
+        // 连接建立时触发
+        console.log('ws 链接成功')
+        ws.send("发送数据999");
+        console.log('发送数据ok');
+    }
+    ws.onmessage = function (evt) {
+        // 客户端接收服务端数据时触发
+        var received_msg = evt.data;
+        console.log('接收到数据' + received_msg);
+
+    }
+    ws.onclose = function () {
+        // 连接关闭时触发
+        console.log('ws 链接关闭')
+
+    }
+    ws.onerror = function () {
+        // 通信发生错误时触发
+        console.log('ws 链接发生错误')
+
+    }
+</script>
+</body>
+</html>
