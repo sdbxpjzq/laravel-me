@@ -26,19 +26,20 @@ class RedisLock
      */
     public static function set($key, $expTime)
     {
-        $isLock = self::oRedis()->setnx($key, time() + $expTime);
-        if ($isLock) {
-            return true;
-        } else {
-            //加锁失败的情况下。判断锁是否已经存在，如果锁存在切已经过期，那么删除锁。进行重新加锁
-
-            $val = self::oRedis()->get($key);
-
-            if ($val && $val < time()) {
-                self::oRedis()->del($key);
-            }
-            return self::oRedis()->setnx($key, time() + $expTime);
-        }
+        return self::oRedis()->set($key, time() ,['nx', 'ex' => $expTime]);
+//        $isLock = self::oRedis()->setnx($key, time() + $expTime);
+//        if ($isLock) {
+//            return true;
+//        } else {
+//            //加锁失败的情况下。判断锁是否已经存在，如果锁存在切已经过期，那么删除锁。进行重新加锁
+//
+//            $val = self::oRedis()->get($key);
+//
+//            if ($val && $val < time()) {
+//                self::oRedis()->del($key);
+//            }
+//            return self::oRedis()->setnx($key, time() + $expTime);
+//        }
     }
 
     /**
