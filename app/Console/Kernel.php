@@ -27,6 +27,11 @@ class Kernel extends ConsoleKernel
 //        * * * * * cd /data/wwwroot/laravel/ && /usr/local/php/bin/php artisan schedule:run >> /dev/null 2>&1
         // 每天执行
         $schedule->call(function (){
+            // 纪念日
+            (new \App\Http\Controllers\Email\Controller\EmailBase(
+                new \App\Http\Controllers\Email\Controller\Commemoration()
+            ))->vSendEmail();
+
             // VPN 说明
             \App\Http\Controllers\Email\Controller\Vpn::bSendVpnEmail();
         })->daily();
