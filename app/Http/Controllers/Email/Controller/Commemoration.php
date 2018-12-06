@@ -40,7 +40,7 @@ class Commemoration implements SendInterface
                 ],
                 'emailTitle' => '纪念日',
                 'day' => '2018-11-16',
-                'text' => '今天是登录记后的第x天'
+                'text' => '今天是登记后的第x天'
             ]
         ];
         foreach ($aInfo as $item) {
