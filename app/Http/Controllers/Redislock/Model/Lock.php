@@ -17,13 +17,14 @@ class Lock extends Model
 {
     private static $storage = 'storage';
     private static $order = 'order';
-    private static $lockKey = 'testloclk';
+    private static $lockKey = 'testloclk11';
 
     // 查询库存
     public static function storage()
     {
         // 加锁
         $lock = RedisLock::set(self::$lockKey, 3);
+        var_dump($lock);
         if ($lock) {
             $aKuCun = DB::table(self::$storage)->where([
                 ['id', '=', 1]
