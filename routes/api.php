@@ -12,9 +12,12 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::get('/8',function (){
-    print_r(22);
+Route::get('test', function () {
+    print_r($_SERVER);
+//    \App\Http\Controllers\Test\T2::indexT2();
 });
+
+
 Route::post('/7', function () {
     //实例化并获取系统变量传参
     $upload = new \App\Http\Controllers\Tool\MaxFileUpload($_FILES['file']['tmp_name'], $_POST['blob_num'], $_POST['total_blob_num'], $_POST['file_name']);
