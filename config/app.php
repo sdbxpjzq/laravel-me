@@ -120,6 +120,7 @@ return [
     */
 
     'providers' => [
+        // todo 注册服务
 
         /*
          * Laravel Framework Service Providers...

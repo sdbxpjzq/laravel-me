@@ -15,11 +15,11 @@ use Custom\Classes\MySendEmail;
  * Class Commemoration
  * @package App\Http\Controllers\Email\Controller
  */
-class Commemoration implements SendInterface
+class Commemoration
 {
     use Tools;
     private $sEmailContent = '';
-    public function send()
+    public  function send()
     {
         // 登记
         $this->dengJiDays();

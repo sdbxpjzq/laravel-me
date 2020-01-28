@@ -31,13 +31,13 @@ return [
     'connections' => [
 
         'sync' => [
-            'driver' => 'sync',
+            'driver' => 'sync', // 同步执行 , 调试的时候有用
         ],
 
         'database' => [
             'driver' => 'database',
             'table' => 'jobs',
-            'queue' => 'default',
+            'queue' => 'default', // 默认队列名称
             'retry_after' => 90,
         ],
 

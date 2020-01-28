@@ -8,6 +8,7 @@
 
 namespace App\Http\Controllers\Activity\Controller;
 
+use App\Jobs\ProcessPodcast;
 use Custom\Classes\MyRedis;
 use phpDocumentor\Reflection\Types\Self_;
 
@@ -28,13 +29,15 @@ class QianDaoTongJi
 
     private static function sGetRedisKey($iUid)
     {
-        $self::oRedis()->get(self::$sIncrKey . $iUid);
+        self::oRedis()->get(self::$sIncrKey . $iUid);
 
     }
 
     // 设置签到
     public static function bSetQianDao($iUid, $iState = 0, $sTime = '')
     {
+        ProcessPodcast::dispatch();
+        ProcessPodcast::dispatchNow();
         $iOffset = $sTime ? strtotime($sTime) : strtotime(date('Y-m-d'));
         return self::oRedis()->setBit(self::$sRediskey . $iUid, $iOffset, $iState);
     }
